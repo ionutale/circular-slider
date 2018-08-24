@@ -10,6 +10,7 @@ import {
     toRad,
     getRelativeAngle
 } from './utils'
+import ClockFace from './ClockFace/ClockFace';
 
 class CircularSlider extends Component {
 
@@ -33,13 +34,13 @@ class CircularSlider extends Component {
         r: 80,
         initialAngle: 90,
         value: undefined,
-        trackWidth: 10,
+        trackWidth: 30,
         trackColor: '#f5f5dc',
         arcColor: '#7985f1',
-        thumbWidth: 10,
+        thumbWidth: 20,
         thumbColor: 'white',
         thumbBorderWidth: 5,
-        thumbBorderColor: '#cccccc',
+        thumbBorderColor: '#7985f1',
         onChange: value => { },
         onChangeThumbStart: value => { },
         onChangeThumbEnd: value => { }
@@ -53,6 +54,7 @@ class CircularSlider extends Component {
 
     componentDidMount() {
         this.offsets = this.refs.circularSlider.getBoundingClientRect()
+        this.setState({ offsets: this.offsets })
     }
 
     angleEnd = () => {
@@ -170,7 +172,11 @@ class CircularSlider extends Component {
     limitAngleFactor = 0
     ref = React.createRef()
     state = {
-        angle: undefined
+        angle: undefined,
+        offsets: {
+            x: 80, y: 140, width: 160, height: 160, top: 140,
+            bottom: 300, height: 160, left: 80, right: 240, top: 140, width: 160, x: 80, y: 140
+        }
     }
 
     render() {
@@ -184,14 +190,13 @@ class CircularSlider extends Component {
                 }}
                 ref="circularSlider"
             >
-                <img src={clockFace} style={{
-                    width: 'inherit',
-                    height: 'inherit',
-                    position: 'absolute',
-                    left: '10px',
-                    top: '10px'
-                }}
-                />
+                <ClockFace
+                    borderOffSet={this.props.trackWidth}
+                    radius={this.props.r}
+                    parentBounds={this.state.offsets}
+                    width="160px"
+                    height="160px"
+                ></ClockFace>
 
                 <Track
                     width={this.props.trackWidth}
