@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './ClockFace'
 
 const DEFAULT_RANGE = 48
 const DEFAULT_TIME_RANGE = 12
@@ -12,8 +13,8 @@ class ClockFace extends Component {
         console.log(this.props.parentBounds, this.props.radius)
 
         this.parentCenter = {
-            x: this.props.parentBounds.width * 0.5,
-            y: this.props.parentBounds.height * 0.5,
+            x: this.props.parentBounds.width * 0.5 + 30,
+            y: this.props.parentBounds.height * 0.5 + 30,
         }
         this.color = '#9d9d9d'
         console.log( `${this.props.borderOffSet}px`,`${this.props.borderOffSet}px`)
@@ -84,10 +85,10 @@ class ClockFace extends Component {
         return (
             <svg style={{
                 position: 'absolute',
-                left: `${this.props.borderOffSet}px`,
-                top: `${this.props.borderOffSet}px`,
-                width: '160px',
-                height: '180px'
+                left: `${0}px`,
+                top: `${0}px`,
+                width: `${this.props.radius * 2 + this.props.borderOffSet * 2}px`,
+                height: `${this.props.radius * 2 + this.props.borderOffSet * 2}px`
             }}>
                 <g>
                     {clockLinesArrComp}
@@ -98,7 +99,6 @@ class ClockFace extends Component {
                         {clockTextsArrComp}
                     </g>
                 </svg>
-
             </svg>
         )
     }

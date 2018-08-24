@@ -29,7 +29,7 @@ export const toStringTime = (minutes) => {
     const hoursStr = hours < 10 ? `0${hours}` : `${hours}`
     const minStr = min < 10 ? `0${min}` : `${min}`
     
-    return `${hoursStr}:${minStr}`
+    return `${hoursStr}h ${minStr}m`
   }
 
   /**

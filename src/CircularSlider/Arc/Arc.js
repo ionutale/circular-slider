@@ -13,7 +13,6 @@ const getPointCoordString = (r, angle) => {
 
 const Arc = ({ r, angle, initialAngle, width, color }) => {
     const relativeAngle = getRelativeAngle(angle, initialAngle)
-
     const center = `${r + width}px ${r + width}px`
     const start = getPointCoordString(r, initialAngle)
     const end = getPointCoordString(r, angle)
@@ -43,7 +42,9 @@ const Arc = ({ r, angle, initialAngle, width, color }) => {
                 border: `${width}px solid ${color}`,
                 position: 'absolute',
                 clipPath: polygonString,
-                WebkitClipPath: polygonString
+                WebkitClipPath: polygonString,
+                left:`${-width / 1.5}px`,
+                top:`${-width / 1.5}px`
             }}
         />
     )

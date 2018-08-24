@@ -3,12 +3,15 @@ import PropTypes from 'prop-types'
 import Arc from './Arc/Arc'
 import Track from './Track/Track'
 import Thumb from './Thumb/Thumb'
-import clockFace from "./Assets/clockFace.svg"
+import './CircularSlider'
 
 import {
     toDeg,
     toRad,
-    getRelativeAngle
+    getRelativeAngle,
+    toMin,
+    toStringTime,
+    startEndDiff
 } from './utils'
 import ClockFace from './ClockFace/ClockFace';
 
@@ -31,7 +34,7 @@ class CircularSlider extends Component {
     }
 
     static defaultProps = {
-        r: 80,
+        r: 100,
         initialAngle: 90,
         value: undefined,
         trackWidth: 30,
@@ -50,6 +53,10 @@ class CircularSlider extends Component {
         super(props)
         document.addEventListener('touchend', this.thumbLeave);
         document.addEventListener('mouseup', this.thumbLeave);
+
+        this.handleStart = 0
+        this.handleEnd = 0
+        this.timeRangeStr = '00h 00m'
     }
 
     componentDidMount() {
@@ -148,19 +155,20 @@ class CircularSlider extends Component {
     calculateThumbPosition = angle => {
         const { r, trackWidth } = this.props
 
-        const x = Math.cos(toRad(angle))
+        const x = (Math.cos(toRad(angle))
             * (r + (trackWidth / 2))
-            + r + trackWidth
+            + r + trackWidth) - (trackWidth / 1.5)
 
-        const y = - Math.sin(toRad(angle))
+        const y = (-Math.sin(toRad(angle))
             * (r + (trackWidth / 2))
-            + r + trackWidth
+            + r + trackWidth) - (trackWidth / 1.5)
 
+        // added the border diff
         return { x, y }
     }
 
     handleChangeThumbEnd = angle => {
-        let percent = (getRelativeAngle(angle, this.props.initialAngle) / 360) * 100
+        const percent = (getRelativeAngle(angle, this.props.initialAngle) / 360) * 100
         this.props.onChangeThumbEnd(percent > 100 ? percent + 100 : percent)
     }
 
@@ -174,7 +182,6 @@ class CircularSlider extends Component {
     state = {
         angle: undefined,
         offsets: {
-            x: 80, y: 140, width: 160, height: 160, top: 140,
             bottom: 300, height: 160, left: 80, right: 240, top: 140, width: 160, x: 80, y: 140
         }
     }
@@ -186,7 +193,7 @@ class CircularSlider extends Component {
                     width: this.props.r * 2,
                     height: this.props.r * 2,
                     position: 'relative',
-                    margin: '140px auto'
+                    margin: '30px auto'
                 }}
                 ref="circularSlider"
             >
@@ -194,8 +201,6 @@ class CircularSlider extends Component {
                     borderOffSet={this.props.trackWidth}
                     radius={this.props.r}
                     parentBounds={this.state.offsets}
-                    width="160px"
-                    height="160px"
                 ></ClockFace>
 
                 <Track

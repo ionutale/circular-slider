@@ -8,7 +8,9 @@ const Track = ({ width, color }) => {
                 height: '100%',
                 border: `${width}px solid ${color}`,
                 borderRadius: '100%',
-                position: 'absolute'
+                position: 'absolute',
+                left:`${-width / 1.5}px`,
+                top:`${-width / 1.5}px`
             }}
         />
     )
