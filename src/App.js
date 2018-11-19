@@ -61,6 +61,8 @@ class App extends Component {
           thumbStart={this.state.thumbStart}
           thumbEnd={this.state.thumbEnd}
         />
+            <br/>
+            <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSHk5wlTvvjRWs7PxtzH0Wc9UW2aLhvbeoHqCCLVeXrbnYRcOqskyiaW4Xc5Qve34qf7Uvd7Bqzj-SV/pubhtml?widget=true&amp;headers=false"></iframe>
       </div>
     );
   }
