@@ -4,10 +4,10 @@
   "private": true,
   "homepage": "https://jhonyourangel.github.io/circular-slider/",
   "dependencies": {
-    "gh-pages": "^1.2.0",
+    "gh-pages": "^6.3.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-scripts": "1.1.4"
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
